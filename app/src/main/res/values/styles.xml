@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="EnigmaLight" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorAccent">@color/enigma_purple</item>
+    </style>
+
+</resources>
