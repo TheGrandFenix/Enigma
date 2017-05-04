@@ -1,8 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <style name="EnigmaLight" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorAccent">@color/enigma_purple</item>
         <item name="android:colorBackground">@color/enigma_purple_light</item>
+        <item name="android:statusBarColor">@color/enigma_purple</item>
+        <item name="android:navigationBarColor">@color/enigma_purple</item>
     </style>
-
 </resources>
