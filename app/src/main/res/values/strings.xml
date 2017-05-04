@@ -2,4 +2,6 @@
     <string name="app_name">Enigma</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_test">test</string>
+    <string name="sendButtonText">SEND</string>
+    <string name="messageInputHint">Message</string>
 </resources>
