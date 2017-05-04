@@ -16,7 +16,9 @@
             android:id="@+id/messageLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical" >
+
+        </LinearLayout>
     </ScrollView>
 
     <LinearLayout
@@ -39,9 +41,10 @@
 
         <Button
             android:id="@+id/sendButton"
-            style="@style/Widget.AppCompat.Button.Colored"
+            style="@style/EnigmaSendButton"
             android:layout_width="68dp"
             android:layout_height="wrap_content"
+            android:onClick="sendMessage"
             android:text="@string/sendButtonText" />
     </LinearLayout>
 
