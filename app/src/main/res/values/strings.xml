@@ -3,4 +3,8 @@
     <string name="sendButtonText">SEND</string>
     <string name="messageInputHint">Message</string>
     <string name="authID">818661263256-jqjt3lq253apuqlams7ds6807sq28kl2.apps.googleusercontent.com</string>
+    <string name="login_email_hint">Email</string>
+    <string name="log_in_button_text">Log in</string>
+    <string name="login_password_hint">Password</string>
+    <string name="sign_up_button_text">Sign up</string>
 </resources>

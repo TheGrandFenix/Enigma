@@ -26,6 +26,8 @@ public class ChatActivity extends Activity {
         if (user == null) {
             startActivity(new Intent(this, LoginActivity.class));
         }
+        TextView userPreview = (TextView) findViewById(R.id.userPreview);
+        userPreview.setText(user.getEmail());
     }
 
     public void sendMessage(View view) {
