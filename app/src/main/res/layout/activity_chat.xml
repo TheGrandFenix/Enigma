@@ -22,7 +22,11 @@
                 android:id="@+id/userPreview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Username Preview" />
+                android:clickable="true"
+                android:onClick="logout"
+                android:paddingTop="5dp"
+                android:text="Username Preview"
+                android:textAlignment="center" />
         </LinearLayout>
     </ScrollView>
 

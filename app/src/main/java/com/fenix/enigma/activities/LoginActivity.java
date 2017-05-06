@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.fenix.enigma.R;
@@ -38,6 +40,7 @@ public class LoginActivity extends Activity {
     }
 
     public void login(View view) {
+        startLoading();
         String email = emailField.getText().toString();
         String password = passwordField.getText().toString();
         enigmaAuth.signInWithEmailAndPassword(email, password)
@@ -45,13 +48,13 @@ public class LoginActivity extends Activity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
+                            finish();
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            finish();
                         }
                     }
                 });
@@ -77,4 +80,11 @@ public class LoginActivity extends Activity {
                 });
     }
 
+    private void startLoading() {
+        LinearLayout loginLayout = (LinearLayout) findViewById(R.id.loginInputLayout);
+        loginLayout.setVisibility(View.GONE);
+
+        ProgressBar loginLoading = (ProgressBar) findViewById(R.id.loginLoading);
+        loginLoading.setVisibility(View.VISIBLE);
+    }
 }

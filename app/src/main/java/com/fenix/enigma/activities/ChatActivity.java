@@ -23,15 +23,23 @@ public class ChatActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+
         user = FirebaseAuth.getInstance().getCurrentUser();
+
         if (user == null) {
             startActivity(new Intent(this, LoginActivity.class));
         }
+
+        //Test user preview [REMOVE]
         TextView userPreview = (TextView) findViewById(R.id.userPreview);
-        userPreview.setText(user.getEmail());
+        if (user != null) userPreview.setText(user.getEmail());
     }
 
     public void sendMessage(View view) {
 
+    }
+
+    public void logout(View view) {
+        FirebaseAuth.getInstance().signOut();
     }
 }
