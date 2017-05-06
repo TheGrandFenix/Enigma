@@ -13,10 +13,11 @@ import android.widget.Toast;
 import com.fenix.enigma.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
+import com.google.firebase.database.FirebaseDatabase;
 
 public class ChatActivity extends Activity {
     FirebaseUser user;
+    FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,9 @@ public class ChatActivity extends Activity {
 
         if (user == null) {
             startActivity(new Intent(this, LoginActivity.class));
+        } else {
+            database = FirebaseDatabase.getInstance();
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         }
 
         EditText messageInput = (EditText) findViewById(R.id.inputMessage);
@@ -45,10 +49,6 @@ public class ChatActivity extends Activity {
                 return false;
             }
         });
-
-        //Test user preview [REMOVE]
-        TextView userPreview = (TextView) findViewById(R.id.userPreview);
-        if (user != null) userPreview.setText(user.getEmail());
     }
 
     public void sendMessage(View view) {
@@ -56,6 +56,7 @@ public class ChatActivity extends Activity {
                 Toast.LENGTH_SHORT).show();
     }
 
+    //Inactive
     public void logout(View view) {
         FirebaseAuth.getInstance().signOut();
         recreate();
