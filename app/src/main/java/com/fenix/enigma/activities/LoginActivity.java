@@ -61,9 +61,10 @@ public class LoginActivity extends Activity {
     }
 
     public void signup(View view) {
-        String email = emailField.getText().toString();
-        String password = passwordField.getText().toString();
-        enigmaAuth.createUserWithEmailAndPassword(email, password)
+        startLoading();
+        String signup_email = emailField.getText().toString();
+        String signup_password = passwordField.getText().toString();
+        enigmaAuth.createUserWithEmailAndPassword(signup_email, signup_password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
