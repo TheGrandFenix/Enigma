@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
+    android:layout_margin="0dp"
+    android:background="@android:color/white"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -19,6 +19,7 @@
         android:id="@+id/loginInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:orientation="vertical"
         android:visibility="visible">
 
@@ -63,32 +64,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/signupInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <EditText
-            android:id="@+id/usernameInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/username_input_hint"
-            android:inputType="textPersonName" />
-
-        <Button
-            android:id="@+id/usernameButton"
-            style="@style/EnigmaSendButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="finishSignup"
-            android:text="@string/signup_finish_button_text" />
     </LinearLayout>
 
 </LinearLayout>

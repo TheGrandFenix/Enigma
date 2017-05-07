@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="bottom"
+    android:background="@android:color/white"
+    android:foregroundGravity="bottom"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    app:layout_anchorGravity="bottom">
 
-    <ListView
-        android:id="@+id/messageList"
+    <ScrollView
+        android:id="@+id/messageScroll"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.00"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
-        android:stackFromBottom="true"
-        android:transcriptMode="normal" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:clipToPadding="false"
+        android:fillViewport="true">
 
-    <View style="@style/Divider"/>
+        <LinearLayout
+            android:id="@+id/messageList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View style="@style/Divider" />
 
     <LinearLayout
         android:id="@+id/inputLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:orientation="horizontal"
         android:padding="5dp">
 
