@@ -61,6 +61,13 @@ public class ChatActivity extends Activity {
                 return false;
             }
         });
+        messageInput.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                scrollToBottom();
+                return false;
+            }
+        });
 
         loadMessages();
 
