@@ -2,25 +2,23 @@ package com.fenix.enigma.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fenix.enigma.Message;
 import com.fenix.enigma.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,7 +43,7 @@ public class ChatActivity extends Activity {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         database = FirebaseDatabase.getInstance();
-        dataref = database.getReference().child("latestMessage");
+        dataref = database.getReference().child("messages");
         dataref.keepSynced(true);
 
         setContentView(R.layout.activity_chat);
@@ -64,32 +62,45 @@ public class ChatActivity extends Activity {
             }
         });
 
-        ValueEventListener newMessageListener = new ValueEventListener() {
+        loadMessages();
+
+        ChildEventListener messageEventListener = new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+                Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
                 Message latestMessage = dataSnapshot.getValue(Message.class);
-                if (latestMessage != null && latestMessage.name != null && latestMessage.message != null) {
-                    addMessage(latestMessage.name, latestMessage.message);
-                }
+                addMessage(latestMessage.name, latestMessage.message);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             }
         };
-        dataref.addValueEventListener(newMessageListener);
+        dataref.addChildEventListener(messageEventListener);
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 
     public void sendMessage(View view) {
         Message messageToSend = new Message(user.getDisplayName(), messageInput.getText().toString());
-        dataref.setValue(messageToSend);
+        dataref.push().setValue(messageToSend);
         messageInput.setText("");
     }
 
@@ -125,7 +136,23 @@ public class ChatActivity extends Activity {
             public void run() {
                 messageScroll.fullScroll(ScrollView.FOCUS_DOWN);
             }
-        }, 100);
+        }, 200);
+    }
+
+    private void loadMessages() {
+        dataref.limitToLast(100).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot messageSnapshot : dataSnapshot.getChildren()) {
+                    Message message = messageSnapshot.getValue(Message.class);
+                    addMessage(message.name, message.message);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
 }
