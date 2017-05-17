@@ -1,6 +1,7 @@
 package com.fenix.enigma.activities;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -126,13 +127,17 @@ public class ChatActivity extends Activity {
         TextView messageText = new TextView(this);
 
         usernameText.setText(username);
+        usernameText.setTextSize(20);
         usernameText.setTextColor(ContextCompat.getColor(this, R.color.enigma_purple));
         messageText.setText(message);
+        messageText.setTextSize(20);
+        messageText.setTextColor(Color.BLACK);
 
         messageLayout.setOrientation(LinearLayout.HORIZONTAL);
         messageLayout.addView(usernameText);
         messageLayout.addView(messageText);
-        messageLayout.setPadding(0,5,0,5);
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) messageLayout.getLayoutParams();
+        params.setMargins(0,10,0,10);
 
         messageList.addView(messageLayout);
         scrollToBottom();
@@ -166,6 +171,6 @@ public class ChatActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        //Ignore input
+        this.moveTaskToBack(true);
     }
 }
