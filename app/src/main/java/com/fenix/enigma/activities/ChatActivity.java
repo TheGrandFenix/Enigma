@@ -69,7 +69,8 @@ public class ChatActivity extends Activity {
             }
         });
 
-        loadMessages();
+        //TEMP Disabled loading old messages
+        //loadMessages();
 
         ChildEventListener messageEventListener = new ChildEventListener() {
             @Override
@@ -146,7 +147,8 @@ public class ChatActivity extends Activity {
         }, 200);
     }
 
-    private void loadMessages() {
+    //TEMP Disabled loading old messages
+    /*private void loadMessages() {
         dataref.limitToLast(100).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -160,6 +162,10 @@ public class ChatActivity extends Activity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-    }
+    }*/
 
+    @Override
+    public void onBackPressed() {
+        //Ignore input
+    }
 }

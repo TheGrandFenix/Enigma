@@ -25,7 +25,7 @@ public class StartActivity extends Activity {
     protected void onStart() {
         super.onStart();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        sleep(500);
+        sleep(75);
         if (user == null) {
             startActivity(new Intent(this, LoginActivity.class));
         } else if (user.getDisplayName() == null) {
