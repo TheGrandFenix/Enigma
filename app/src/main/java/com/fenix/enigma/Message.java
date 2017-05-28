@@ -1,5 +1,6 @@
 package com.fenix.enigma;
 
+//Class for storing message data for the database
 public class Message {
     public String name;
     public String message;
