@@ -41,6 +41,7 @@ public class ChatActivity extends Activity {
 
     //Custom variables
     Context thisContext;
+    ChatActivity thisActivity;
     boolean foreground = true;
     MessageLayout lastMessage;
 
@@ -52,6 +53,7 @@ public class ChatActivity extends Activity {
 
         //Reference to this
         thisContext = this;
+        thisActivity = this;
 
         //Get Firebase user and database details
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -95,7 +97,7 @@ public class ChatActivity extends Activity {
                 Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
                 Message latestMessage = dataSnapshot.getValue(Message.class);
                 addMessage(latestMessage.name, latestMessage.message);
-                if(!foreground) EnigmaNotification.sendNotification(thisContext);
+                if(!foreground) EnigmaNotification.sendNotification(thisContext, thisActivity);
             }
 
             @Override
@@ -116,12 +118,19 @@ public class ChatActivity extends Activity {
 
         //???
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        //Close notification when app opens
+        EnigmaNotification.closeNotification(this, 1);
     }
 
     //Override onStart - future uses
     @Override
     protected void onStart() {
         super.onStart();
+
+        //Set to foreground and close notification on start
+        foreground = true;
+        EnigmaNotification.closeNotification(this, 1);
     }
 
     //Send new message to the database
@@ -170,6 +179,7 @@ public class ChatActivity extends Activity {
     public void onResume() {
         super.onResume();
         foreground = true;
+        EnigmaNotification.closeNotification(this, 1);
         scrollToBottom();
     }
 
